@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Semillero de Fútbol - Comfenalco & SENA</title>
+        <link rel="icon" type="image/x-icon" href="https://colegiocomfenalcoibague.edu.co/favicon.ico">
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #1a1a1a;
+                color: white;
+                font-family: 'Segoe UI', Arial, sans-serif;
+            }
+
+            /* 🏢 HEADER VERDE INSTITUCIONAL */
+            header {
+                position: fixed;       
+                top: 0;
+                left: 0;
+                width: 100%;           
+                height: 110px;         
+                background-color: #32CD32; 
+                display: flex;
+                justify-content: space-between; 
+                align-items: center;
+                padding: 0 40px;
+                box-sizing: border-box;
+                border-bottom: 5px solid #000000; 
+                z-index: 9999;         
+            }
+
+            .brand-izquierdo { display: flex; align-items: center; }
+            .logo-header { height: 80px; width: auto; object-fit: contain; }
+            .texto-colegio { display: flex; flex-direction: column; margin-left: 20px; }
+            .texto-colegio h2 { margin: 0; font-size: 34px; font-weight: 900; color: #ffffff; text-transform: uppercase; line-height: 1; }
+            .texto-colegio .ubicacion-colegio { margin: 4px 0 0 0; font-size: 13px; color: #000000; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+            .titulo-disciplina-separado { font-size: 38px; color: #000000; font-style: italic; font-weight: 900; margin-left: 60px; }
+            .header-derecho-contenedor { display: flex; align-items: center; gap: 25px; }
+
+            /* Menú Hamburguesa */
+            .menu-interactivo { position: relative; }
+            .icono-menu { display: flex; flex-direction: column; justify-content: space-between; width: 32px; height: 20px; cursor: pointer; }
+            .icono-menu span { display: block; width: 100%; height: 4px; background-color: #000000; border-radius: 2px; }
+            
+            .opciones-menu {
+                position: absolute;
+                top: 35px;
+                right: 0; 
+                background-color: #082727;  
+                list-style: none;
+                padding: 10px 0;
+                margin: 0;
+                border-radius: 8px;
+                width: 220px;
+                border: 2px solid #32CD32; 
+                display: none;        
+                flex-direction: column;
+                z-index: 10000;
+            }
+
+            .opciones-menu li a, .btn-regresar-enlace {
+                display: block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; font-size: 15px; text-align: center; 
+            }
+            .btn-regresar-enlace { color: #ff4757 !important; background: none; border: none; width: 100%; cursor: pointer; box-sizing: border-box; }
+            .opciones-menu li a:hover, .btn-regresar-enlace:hover { background-color: #32CD32; color: black !important; }
+
+            /* Contenido Principal del Juego */
+            main {
+                padding: 15px 20px 50px 20px;
+                text-align: center;
+                margin-top: 130px; 
+            }
+
+            /* ⚽ ZONA DEL CAMPO DE JUEGO */
+            .zona-juego {
+                width: 100%;
+                max-width: 600px;
+                height: 400px;
+                background: linear-gradient(to bottom, #111, #222);
+                border: 4px solid #32CD32;
+                border-radius: 12px;
+                position: relative;
+                overflow: hidden;
+                margin: 20px auto;
+                cursor: none; 
+            }
+
+            .portero-guantes {
+                width: 60px; height: 60px; font-size: 40px; text-align: center; line-height: 60px;
+                position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+                transition: transform 0.05s ease-out; pointer-events: none; z-index: 10;
+            }
+
+            .balon-juego {
+                width: 40px; height: 40px; font-size: 30px; text-align: center; line-height: 40px;
+                position: absolute; top: -50px; left: 50%; pointer-events: none;
+            }
+
+            .marcador-juego { font-size: 20px; font-weight: bold; margin-top: 15px; }
+            .marcador-juego span { color: #32CD32; }
+            #fallos { color: #ff4757; }
+
+            .btn-reiniciar {
+                background-color: #ff4757; color: white; border: none; padding: 12px 25px;
+                font-weight: bold; border-radius: 5px; cursor: pointer; display: none; margin: 20px auto;
+                font-size: 16px;
+            }
+            .btn-reiniciar:hover { background-color: #ff2a3a; }
+            .logo-header {
+                height: 80px;
+                width: auto;
+                object-fit: contain;
+            }
+        </style>
+    </head>
+    <body>
+
+        <header>
+            <div class="brand-izquierdo">
+                <img src="https://colegiocomfenalcoibague.edu.co/images/Logos/Logo_Colegio.png" alt="Logo Colegio" class="logo-header">
+                <div class="texto-colegio">
+                    <h2>COMFENALCO</h2>
+                    <div class="ubicacion-colegio">Ibagué - Tolima</div>
+                </div>
+            </div>
+            <div class="titulo-disciplina-separado">Fútbol Sala</div>
+            <div class="header-derecho-contenedor">
+                <nav class="menu-interactivo">
+                    <div class="icono-menu" onclick="toggleMenu()">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <ul class="opciones-menu" id="menu-lista">
+                        <li class="fila-regresar">
+                            <a href="index.html" class="btn-regresar-enlace">← Regresar</a>
+                        </li>
+                        <li><a href="quienes_somos.html">👥 ¿Quiénes Somos?</a></li>
+                        <li><a href="horarios.html">📅 Horarios</a></li>
+                        <li><a href="inscripcion.html">📝 Inscríbete</a></li>
+                        <li><a href="profesor.html">👨‍🏫 Profesor</a></li>
+                        <li><a href="juego.html">🎮 Minijuego</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <h2>🧤 ¡Desafío del Arquero! Ataja los Balones ⚽</h2>
+            <p>Desplaza el mouse de izquierda a derecha dentro del campo para controlar los guantes</p>
+
+            <div class="zona-juego" id="campoJuego">
+                <div class="portero-guantes" id="guantes">🧤</div>
+                <div class="balon-juego" id="balon">⚽</div>
+            </div>
+
+            <div class="marcador-juego">
+                Atajadas: <span id="puntos">0</span> | Goles Recibidos: <span id="fallos">0</span> / 3
+            </div>
+            <button class="btn-reiniciar" id="btnReiniciar" onclick="reiniciarJuego()">Volver a Intentarlo 🔄</button>
+        </main>
+
+        <script>
+            // Lógica de apertura/cierre de la hamburguesa
+            function toggleMenu() {
+                var menu = document.getElementById("menu-lista");
+                menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+            }
+
+            // Variables del Juego
+            const campo = document.getElementById('campoJuego');
+            const guantes = document.getElementById('guantes');
+            const balon = document.getElementById('balon');
+            const txtPuntos = document.getElementById('puntos');
+            const txtFallos = document.getElementById('fallos');
+            const btnReiniciar = document.getElementById('btnReiniciar');
+
+            let puntos = 0; let fallos = 0; let juegoActivo = true;
+            let balonX = 280; let balonY = -50; let velocidadBalon = 4;
+
+            campo.addEventListener('mousemove', (e) => {
+                if (!juegoActivo) return;
+                const rect = campo.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                if (x < 30) x = 30;
+                if (x > rect.width - 30) x = rect.width - 30;
+                guantes.style.left = x + 'px';
+            });
+
+            function actualizarJuego() {
+                if (!juegoActivo) return;
+
+                balonY += velocidadBalon;
+                balon.style.top = balonY + 'px';
+                balon.style.left = balonX + 'px';
+
+                const gRect = guantes.getBoundingClientRect();
+                const bRect = balon.getBoundingClientRect();
+
+                if (bRect.bottom >= gRect.top && bRect.top <= gRect.bottom &&
+                    bRect.right >= gRect.left && bRect.left <= gRect.right) {
+                    puntos++;
+                    txtPuntos.innerText = puntos;
+                    velocidadBalon += 0.4; 
+                    resetearBalon();
+                }
+
+                if (balonY > 400) {
+                    fallos++;
+                    txtFallos.innerText = fallos;
+                    if (fallos >= 3) {
+                        juegoActivo = false;
+                        alert("⚽ ¡Te metieron 3 goles! Fin del partido. Lograste " + puntos + " atajadas.");
+                        btnReiniciar.style.display = 'block';
+                    } else {
+                        resetearBalon();
+                    }
+                }
+                requestAnimationFrame(actualizarJuego);
+            }
+
+            function resetearBalon() {
+                balonY = -50;
+                balonX = Math.floor(Math.random() * (560 - 40)) + 20;
+            }
+
+            function reiniciarJuego() {
+                puntos = 0; fallos = 0; velocidadBalon = 4;
+                txtPuntos.innerText = "0"; txtFallos.innerText = "0";
+                btnReiniciar.style.display = 'none';
+                juegoActivo = true;
+                resetearBalon();
+                actualizarJuego();
+            }
+
+            actualizarJuego();
+        </script>
+    </body>
+</html>

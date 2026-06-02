@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="https://colegiocomfenalcoibague.edu.co/favicon.ico">
+        <title>Inscripción al Semillero</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Segoe UI', Arial, sans-serif;
+                background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+                            url("semillero_de_futbol_img1.jpg") no-repeat center center fixed;
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+
+            /* 📝 EL CONTENEDOR PRINCIPAL (Grande, nítido y centrado) */
+            .container {
+                background-color: rgba(255, 255, 255, 0.96);
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+                max-width: 650px; 
+                width: 100%;
+                margin: 40px auto; 
+                box-sizing: border-box;
+            }
+
+            h2 { 
+                text-align: center; 
+                color: #1a1a1a; 
+                border-bottom: 3px solid #32CD32; 
+                padding-bottom: 12px; 
+                text-transform: uppercase;
+                margin-top: 0;
+            }
+
+            /* 🏷️ ETIQUETAS DE TEXTO */
+            label {
+                font-weight: 700;
+                font-size: 15px;
+                color: #1a1a1a;
+                display: block;
+                margin-top: 15px;
+                margin-bottom: 5px;
+            }
+
+            /* ✍️ INPUTS GRANDES Y MODERNOS */
+            input[type="text"], 
+            input[type="email"], 
+            input[type="tel"], 
+            input[type="date"] {
+                width: 100%;
+                padding: 14px;          
+                margin-bottom: 5px;
+                border: 2px solid #cccccc;
+                border-radius: 8px;
+                font-size: 16px;        
+                box-sizing: border-box;
+                transition: border-color 0.3s ease;
+            }
+
+            /* Efecto verde Comfenalco al hacer clic para escribir */
+            input:focus {
+                border-color: #32CD32;  
+                outline: none;
+            }
+
+            /* 🚀 BOTÓN DE FINALIZAR INSCRIPCIÓN GRANDE */
+            .btn-enviar {
+                width: 100%;
+                background-color: #32CD32; 
+                color: #ffffff;
+                font-size: 18px;        
+                font-weight: bold;
+                text-transform: uppercase;
+                padding: 16px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                margin-top: 25px;
+                transition: background-color 0.3s ease;
+                box-shadow: 0 4px 12px rgba(50, 205, 50, 0.3);
+            }
+
+            .btn-enviar:hover {
+                background-color: #24a024; 
+            }
+
+            /* 🔗 ENLACE DE VOLVER AL INICIO */
+            .btn-regresar-enlace {
+                color: #ff4757; 
+                font-weight: bold;
+                font-size: 16px;
+                text-decoration: none; 
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 12px 20px;
+                margin-top: 20px;
+                box-sizing: border-box;
+                border-radius: 8px;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-regresar-enlace:hover {
+                background-color: rgba(255, 71, 87, 0.1); 
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Formulario de Inscripción</h2>
+            <form id="form-inscripcion" autocomplete="off" action="proyecto_Sm.Ft.html" method="GET">
+                <label>ID / Documento del Estudiante:</label>
+                <input type="text" id="ins-id" placeholder="Ej: 1023456789" required>        
+                
+                <label>Nombre Completo del Estudiante:</label>
+                <input type="text" id="ins-nombre" placeholder="Nombres y Apellidos" required>        
+                
+                <label>Fecha de Nacimiento:</label>
+                <input type="date" id="ins-fecha" required>        
+                
+                <label>EPS / Seguro Médico:</label>
+                <input type="text" id="ins-eps" placeholder="Ej: Sanitas, Sura" required>        
+                
+                <label>Nombre del Acudiente:</label>
+                <input type="text" id="ins-acudiente" placeholder="Nombre completo del tutor" required>        
+                
+                <label>Teléfono del Acudiente:</label>
+                <input type="tel" id="ins-telefono" placeholder="Ej: 3151234567" required>  
+                
+                <label>Correo Electrónico del Acudiente:</label>
+                <input type="email" id="ins-correo" placeholder="Ej: acudiente@correo.com">                                    
+                
+                <label>Observaciones / Datos Médicos:</label>
+                <input type="text" id="ins-observaciones" placeholder="Ej: Ninguna, asma, juega de delantero...">
+                
+                <button type="button" class="btn-enviar" onclick="procesarInscripcion()">Finalizar Inscripción</button>
+            </form>
+            <a href="index.html" class="btn-regresar-enlace">← Volver al Inicio</a>
+        </div>
+
+        <script>
+            function procesarInscripcion() {
+                // 1. Capturamos los valores de los campos HTML
+                var id = document.getElementById('ins-id').value;
+                var nombre = document.getElementById('ins-nombre').value;
+                var fecha = document.getElementById('ins-fecha').value;
+                var eps = document.getElementById('ins-eps').value;
+                var acudiente = document.getElementById('ins-acudiente').value;
+                var telefono = document.getElementById('ins-telefono').value;
+                var correo = document.getElementById('ins-correo').value || "Ninguno";
+                var observaciones = document.getElementById('ins-observaciones').value || "Ninguna";
+
+                // 2. Validamos que los campos obligatorios no estén vacíos
+                if (!id || !nombre || !fecha || !eps || !acudiente || !telefono) {
+                    alert("⚠️ Por favor, completa todos los campos del formulario antes de continuar.");
+                    return;
+                }
+
+                // 3. Creamos el objeto para la base de datos local
+                var nuevoAlumno = { 
+                    documento: id, 
+                    nombre_alumno: nombre, 
+                    fecha_nacimiento: fecha, 
+                    eps: eps, 
+                    nombre_completo: acudiente, 
+                    telefono: telefono,
+                    correo: correo, 
+                    observaciones: observaciones 
+                };
+
+                // 4. Guardamos en el LocalStorage
+                var listaAlumnos = JSON.parse(localStorage.getItem('alumnos')) || [];
+                listaAlumnos.push(nuevoAlumno);
+                localStorage.setItem('alumnos', JSON.stringify(listaAlumnos));
+
+                // 5. Mensaje de éxito y redirección arreglada con guion bajo (_)
+                alert("¡Felicidades! 🎉 Tu inscripción ha sido enviada con éxito a la base de datos del Semillero.");
+                window.location.href = "proyecto_Sm.Ft.html";
+            }
+        </script>
+    </body>
+</html>

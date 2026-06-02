@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Semillero de Fútbol - Comfenalco & SENA</title>
+        <link rel="icon" type="image/x-icon" href="https://colegiocomfenalcoibague.edu.co/favicon.ico">
+        <style>/* 🏢 EL ENCABEZADO FIJO */
+            header {
+                position: fixed;       /* Te sigue al bajar */
+                top: 0;
+                left: 0;
+                width: 100%;           
+                height: 125px;         /* Espacio cómodo para logos, título y menú */
+                background-color: #ffffff; /* Fondo oscuro sólido para que resalte el verde */
+                display: flex;
+                justify-content: space-between; /* Logos a los extremos */
+                align-items: center;
+                padding: 0 40px;
+                box-sizing: border-box;
+                border-bottom: 3px solid #32CD32; /* 💚 Mantenemos tu línea verde brillante abajo */
+                z-index: 9999;         
+            }
+            .logo-header {
+                height: 75px;        /* Altura perfecta para que quepan cómodos en los 125px del header */
+                width: auto;         /* Mantiene la proporción original para que no se estiren feo */
+                object-fit: contain; /* Asegura que la imagen se acomode bien */
+            }
+
+
+            .header-centro {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                flex: 1; 
+            }
+
+
+            .titulo-futbol-sala {
+                margin: 0 0 12px 0; 
+                color: #32CD32; /* 💚 El título ahora brilla en tu verde característico */
+                font-size: 28px;
+                text-transform: uppercase;
+                font-weight: bold;
+                letter-spacing: 2px;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Sombra para que se lea premium */
+            }
+
+
+            .menu-interactivo {
+                position: relative; 
+                z-index: 10000;
+            }
+
+
+            .icono-menu {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 32px;  
+                height: 22px; 
+                cursor: pointer;
+            }
+
+            .icono-menu span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: #32CD32; /* 💚 Las 3 líneas también en verde */
+                border-radius: 2px;
+            }
+
+            .opciones-menu {
+                position: absolute;
+                top: 38px;
+                left: 50%;
+                transform: translateX(-50%); 
+                background-color: #082727;  
+                list-style: none;
+                padding: 10px 0;
+                margin: 0;
+                border-radius: 8px;
+                width: 220px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+                border: 2px solid #32CD32;  /* 💚 Borde verde para la caja flotante */
+    
+                display: none;        
+                flex-direction: column;
+            }
+
+            .opciones-menu li a {
+                display: block;
+                padding: 12px 20px;
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 15px;
+                text-align: center; 
+            }
+
+
+            .opciones-menu li a:hover {
+                background-color: #32CD32;
+                color: black;
+            }
+
+
+            .fila-regresar { border-bottom: 1px solid #444; padding-bottom: 5px; margin-bottom: 5px; }
+            .btn-regresar { background: none; border: none; color: #ff4757; font-weight: bold; font-size: 14px; cursor: pointer; padding: 10px 20px; width: 100%; text-align: center; text-transform: uppercase; }
+
+
+            body {
+                padding-top: 145px !important; /* Evita que el contenido se pise con el header fijo */
+            }
+            main{
+                margin: 0;
+                padding: 0;
+                font-family: 'Segoe UI', Arial, sans-serif;
+                background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+                            url("semillero_de_futbol_img1.jpg") no-repeat center center fixed;
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+            .btn-regresar-enlace {
+                background: none;
+                border: none;
+                color: #ff4757; /* El color rojo llamativo que ya tenías */
+                font-weight: bold;
+                font-size: 15px;
+                text-decoration: none; /* Le quita la línea fea de abajo de los enlaces */
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 12px 20px;
+                cursor: pointer;
+            }
+
+            .btn-regresar-enlace:hover {
+                background-color: rgba(255, 71, 87, 0.2); /* Sombreado rojo suave al pasar el mouse */
+            }
+        </style>
+    </head>
+    <body>    
+        <header>
+            <img src="favicon-removebg-preview.png" alt="logo" style="height: 75px;">
+
+            <div class="header-centro">
+                <h1 class="titulo-futbol-sala">Fútbol Sala</h1>
+
+                <nav class="menu-interactivo">
+                    <div class="icono-menu" onclick="toggleMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+            
+                    <ul class="opciones-menu" id="menu-lista">
+                        <li class="fila-regresar">
+                            <button type="button" class="btn-regresar" onclick="toggleMenu()">← Regresar</button>
+                        </li>
+                        <li><a href="quienes_somos.html">👥 ¿Quiénes Somos?</a></li>
+                        <li><a href="horarios.html">📅 Horarios</a></li>
+                        <li><a href="inscripcion.html">📝 Inscríbete</a></li>
+                        <li><a href="profesor.html">👨‍🏫 Profesor</a></li>
+                        <li><a href="contactanos.html">📞 Contáctanos</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <img src="logo2.png" alt="Logo Derecho" style="height: 75px;">
+        </header>
+    </body>
+    <footer id="contactanos" style="background-color: #1a1a1a; color: white; padding: 40px 20px; text-align: center;">
+        <h3 style="color: #32CD32; text-transform: uppercase; margin-bottom: 20px;">Contáctanos</h3>    
+        <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto;">
+            <div>
+                <p><b>📍 Dirección:</b></p>
+                <p>Calle 125 Entre Carreras 18D Sur y 18 Bis Sur<br>Ibagué, Tolima</p>
+            </div>
+            <div>
+                <p><b>📞 Teléfono / WhatsApp:</b></p>
+                <p>+57 318 612 8091</p>
+            </div>
+            <div>
+                <p><b>📧 Correo Electrónico:</b></p>
+                <p>semillero.futbol@comfenalco.edu.co</p>
+            </div>
+        </div>   
+        <hr style="width: 50%; border: 0.5px solid #444; margin: 30px auto;">    
+            <p style="font-size: 14px; color: #888;">
+                © 2026 Semillero de Fútbol Colegio Comfenalco - Proyecto Educativo SENA.
+            </p>
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('menu-lista');
+        
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+            }
+        }
+    </script>
+</html>

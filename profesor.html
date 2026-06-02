@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="https://colegiocomfenalcoibague.edu.co/favicon.ico">
+        <title>Plataforma del Profesor</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 20px;
+                font-family: 'Segoe UI', Arial, sans-serif;
+                background: #1a1a1a;
+                color: white;
+            }
+            
+            /* 🌍 CONTENEDOR FLEXIBLE: Se adapta si es el login o la tabla gigante */
+            .container { 
+                width: 100%;
+                max-width: 1000px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                text-align: center; 
+                box-sizing: border-box;
+            }
+
+            /* 📐 Clase especial que aplicaremos con JS para que la tabla se vuelva GIGANTE */
+            .container.pantalla-ancha {
+                max-width: 95% !important; 
+            }
+
+            h2 { 
+                color: #32CD32; 
+                border-bottom: 3px solid #32CD32; 
+                padding-bottom: 12px; 
+                text-transform: uppercase; 
+            }
+
+            .btn-regresar-enlace {
+                background: none;
+                border: none;
+                color: #ff4757; 
+                font-weight: bold;
+                font-size: 15px;
+                text-decoration: none; 
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 12px 20px;
+                cursor: pointer;
+            }
+
+            .btn-regresar-enlace:hover {
+                background-color: rgba(255, 71, 87, 0.2); 
+            }
+
+            .login-box { 
+                max-width: 400px; 
+                margin: 40px auto; 
+                background-color: #222; 
+                padding: 30px; 
+                border-radius: 8px; 
+                box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+                text-align: left; 
+            }
+
+            label { font-weight: bold; display: block; margin-bottom: 5px; color: #32CD32; margin-top: 15px; }
+            input { width: 100%; padding: 10px; border: 1px solid #32CD32; background-color: #333; color: white; border-radius: 4px; box-sizing: border-box; }
+        
+            .btn { background-color: #32CD32; color: black; font-weight: bold; border: none; padding: 12px; cursor: pointer; border-radius: 4px; text-transform: uppercase; margin-top: 20px; width: 100%; font-size: 14px; }
+            .btn:hover { background-color: #28a428; }
+        
+            .btn-accion { background-color: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 14px; }
+            .btn-eliminar { background-color: #dc3545; color: white; }
+            .btn-eliminar:hover { background-color: #bd2130; }
+            .btn-guardar { background-color: #28a745; color: white; }
+            .btn-guardar:hover { background-color: #218838; }
+        
+            /* 📊 TABLA OPTIMIZADA (Más espaciosa y legible) */
+            table { 
+                width: 100%; 
+                border-collapse: collapse; 
+                background-color: rgba(255, 255, 255, 0.98); 
+                color: black; 
+                margin-top: 20px; 
+                border-radius: 8px; 
+                overflow: hidden; 
+                text-align: center; 
+                font-size: 14px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            }
+            th { background-color: #32CD32; color: black; padding: 14px 10px; border: 1px solid #28a428; font-weight: bold; }
+            td { padding: 12px 10px; border: 1px solid #ddd; }
+            tr:nth-child(even) { background-color: #f9f9f9; }
+            tr:hover { background-color: #f1f1f1; }
+        
+            .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); justify-content: center; align-items: center; }
+            .modal-content { background-color: #222; padding: 30px; border-radius: 10px; width: 100%; max-width: 450px; text-align: left; border: 2px solid #32CD32; }
+        
+            .back-link { display: inline-block; margin-top: 30px; color: #32CD32; text-decoration: none; font-weight: bold; cursor: pointer; }
+        </style>
+    </head>
+    <body>
+
+        <div class="container" id="contenedor-principal">
+            <h2>Plataforma de Control del Profesor</h2>
+    
+            <div id="seccion-login" class="login-box">
+                <h3 style="margin-top:0; text-align:center; color: #fff;">Control de Acceso</h3>
+                <label>Usuario / Correo:</label>
+                <input type="email" id="correo" placeholder="profesor@comfenalco.edu.co" required>
+                <label>Contraseña:</label>
+                <input type="password" id="clave" placeholder="••••••••" required>
+                <button type="button" class="btn" onclick="iniciarSesion()">Ingresar al Sistema</button>
+                <a href="index.html" class="back-link" style="display:block; text-align:center;">← Volver al Sitio Principal</a>
+            </div>
+
+            <div id="seccion-datos" style="display: none; text-align: left; margin-top: 40px;">
+        
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="color: #32CD32; text-transform: uppercase; margin: 0;">📋 Alumnos Postulados (Base de Datos)</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" class="btn-accion btn-guardar" onclick="abrirModal()">+ Guardar Nuevo</button>
+                        <button type="button" class="btn-accion" style="background-color: #555;" onclick="cerrarSesion()">Volver / Salir</button>
+                    </div>
+                </div>
+        
+                <div style="overflow-x: auto;">
+                    <table id="tabla-alumnos">
+                        <thead>
+                            <tr>
+                                <th>ID / Documento</th>
+                                <th>Nombre Alumno</th>
+                                <th>Fecha Nacimiento</th>
+                                <th>EPS</th>
+                                <th>Nombre Acudiente</th>
+                                <th>Teléfono</th>
+                                <th>Correo Acudiente</th>
+                                <th>Observaciones</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-agregar" class="modal">
+            <div class="modal-content">
+                <h3 style="color: #32CD32; margin-top: 0; text-align: center; text-transform: uppercase;">Nuevo Registro</h3>
+                <form id="form-nuevo-alumno">
+                    <label>ID / Documento:</label>
+                    <input type="text" id="add-id" placeholder="Ej: 1088444333" required>
+                    <label>Nombre del Alumno:</label>
+                    <input type="text" id="add-nombre" placeholder="Nombre completo" required>
+                    <label>Fecha de Nacimiento:</label>
+                    <input type="date" id="add-fecha" required>
+                    <label>EPS:</label>
+                    <input type="text" id="add-eps" placeholder="Ej: Coosalud" required>
+                    <label>Nombre del Acudiente:</label>
+                    <input type="text" id="add-acudiente" placeholder="Nombre del padre/madre" required>
+                    <label>Teléfono del Acudiente:</label>
+                    <input type="tel" id="add-telefono" placeholder="Ej: 3001234567" required>
+            
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="button" class="btn" style="background-color: #28a745; color: white; margin-top:0;" onclick="agregarAlumnoTabla()">Guardar</button>
+                        <button type="button" class="btn" style="background-color: #dc3545; color: white; margin-top:0;" onclick="cerrarModal()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            // 1. CONTROL DE ACCESO
+            function iniciarSesion() {
+                var correoDigitado = document.getElementById('correo').value;
+                var claveDigitada = document.getElementById('clave').value;
+
+                if (correoDigitado === "profesor@comfenalco.edu.co" && claveDigitada === "1234") {
+                    alert("¡Bienvenido Profesor! Accediendo al sistema...");
+                    document.getElementById('seccion-login').style.display = 'none';
+                    document.getElementById('seccion-datos').style.display = 'block';
+                    // 🚀 Agranda el contenedor principal al 95% para expandir la tabla
+                    document.getElementById('contenedor-principal').classList.add('pantalla-ancha');
+                } else {
+                    alert("❌ Correo o contraseña incorrectos. Acceso denegado.");
+                }
+            }
+
+            function cerrarSesion() {
+                document.getElementById('seccion-datos').style.display = 'none';
+                document.getElementById('seccion-login').style.display = 'block';
+                // 🔄 Devuelve el contenedor a su tamaño normal de login
+                document.getElementById('contenedor-principal').classList.remove('pantalla-ancha');
+            }
+
+            // 2. CARGAR ALUMNOS DESDE LOCALSTORAGE
+            function cargarAlumnos() {
+                let alumnos = JSON.parse(localStorage.getItem('alumnos')) || [];
+                let tablaBody = document.getElementById('tabla-alumnos').getElementsByTagName('tbody')[0];
+    
+                // Filas estáticas iniciales corregidas
+                tablaBody.innerHTML = `
+                    <tr>
+                        <td style="font-weight:bold;">1024555888</td>
+                        <td>Juan Andrés Pérez Gómez</td>
+                        <td>2014-05-12</td>
+                        <td>Sanitas</td>
+                        <td>Carlos Pérez</td>
+                        <td>3157778899</td>
+                        <td style="color: #007bff; font-weight: bold;">nose@gmail.com</td>
+                        <td>Sin novedad</td>
+                        <td><button class="btn-accion btn-eliminar" onclick="eliminarFila(this, -1)">Eliminar</button></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold;">1026999111</td>
+                        <td>Santiago Maldonado Ruiz</td>
+                        <td>2012-09-22</td>
+                        <td>Sura</td>
+                        <td>Diana Ruiz</td>
+                        <td>3204445566</td>
+                        <td style="color: #007bff; font-weight: bold;">nose@gmail.com</td>
+                        <td>Sin novedad</td>
+                        <td><button class="btn-accion btn-eliminar" onclick="eliminarFila(this, -1)">Eliminar</button></td>
+                    </tr>
+                `;
+
+                // Renderizar los alumnos que vienen de inscripcion.html
+                alumnos.forEach((alumno, index) => {
+                    let fila = `<tr>
+                        <td style="font-weight:bold;">${alumno.documento || 'N/A'}</td>
+                        <td>${alumno.nombre_alumno || 'N/A'}</td>
+                        <td>${alumno.fecha_nacimiento || 'N/A'}</td>
+                        <td>${alumno.eps || 'N/A'}</td>
+                        <td>${alumno.nombre_completo || alumno.nombre_acudiente || 'N/A'}</td>
+                        <td>${alumno.telefono || 'N/A'}</td>
+                        <td style="color: #007bff; font-weight: bold;">${alumno.correo || 'Ninguno'}</td>
+                        <td>${alumno.observaciones || 'Ninguna'}</td>
+                        <td><button class="btn-accion btn-eliminar" onclick="eliminarFila(this, ${index})">Eliminar</button></td>
+                    </tr>`;
+                    tablaBody.innerHTML += fila;
+                });
+            }
+
+            window.addEventListener('load', cargarAlumnos);
+
+            // 3. ELIMINAR REGISTROS
+            function eliminarFila(boton, index) {
+                if(confirm("¿Está seguro de que desea eliminar este registro de la Base de Datos?")) {
+                    if (index !== -1) {
+                        let alumnos = JSON.parse(localStorage.getItem('alumnos')) || [];
+                        alumnos.splice(index, 1); 
+                        localStorage.setItem('alumnos', JSON.stringify(alumnos));
+                    }
+        
+                    var fila = boton.parentNode.parentNode;
+                    fila.parentNode.removeChild(fila);
+        
+                    if (index !== -1) cargarAlumnos();
+                }
+            }
+
+            // 4. MODAL CONTROL
+            function abrirModal() { document.getElementById('modal-agregar').style.display = 'flex'; }
+            function cerrarModal() { document.getElementById('modal-agregar').style.display = 'none'; document.getElementById('form-nuevo-alumno').reset(); }
+
+            function agregarAlumnoTabla() {
+                var id = document.getElementById('add-id').value;
+                var nombre = document.getElementById('add-nombre').value;
+                var fecha = document.getElementById('add-fecha').value;
+                var eps = document.getElementById('add-eps').value;
+                var acudiente = document.getElementById('add-acudiente').value;
+                var telefono = document.getElementById('add-telefono').value;
+
+                if(!id || !nombre || !fecha || !eps || !acudiente || !telefono) { alert("Por favor, rellene todos los campos."); return; }
+
+                let nuevoAlumno = {
+                    documento: id,
+                    nombre_alumno: nombre,
+                    fecha_nacimiento: fecha,
+                    eps: eps,
+                    nombre_completo: acudiente,
+                    telefono: telefono,
+                    correo: 'Agregado por Prof.',
+                    observaciones: 'Añadido manualmente'
+                };
+
+                let alumnos = JSON.parse(localStorage.getItem('alumnos')) || [];
+                alumnos.push(nuevoAlumno);
+                localStorage.setItem('alumnos', JSON.stringify(alumnos));
+
+                cargarAlumnos(); 
+                cerrarModal();
+            }
+        </script>
+    </body>
+</html>

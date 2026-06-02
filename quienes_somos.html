@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Semillero de Fútbol - Comfenalco & SENA</title>
+        <img src="https://colegiocomfenalcoibague.edu.co/favicon.ico" alt="Logo Colegio" class="logo-header">
+        <style>
+            header {
+                position: fixed;       
+                top: 0;
+                left: 0;
+                width: 100%;           
+                height: 110px;         
+                background-color: #32CD32; /* 💚 Verde institucional */
+                display: flex;
+                justify-content: space-between; 
+                align-items: center;
+                padding: 0 40px;
+                box-sizing: border-box;
+                border-bottom: 5px solid #000000; /* ⚫ Borde negro */
+                z-index: 9999;         
+            }
+            .logo-header {
+                height: 80px;
+                width: auto;
+                object-fit: contain;
+            }
+
+            /* 🤝 LADO IZQUIERDO: LOGO + COMFENALCO (IBAGUÉ - TOLIMA) */
+            .brand-izquierdo {
+                display: flex;
+                align-items: center;
+            }
+
+            .logo-header {
+                height: 80px;
+                width: auto;
+                object-fit: contain;
+            }
+
+            .texto-colegio {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                display: flex;
+                flex-direction: column;   
+                margin-left: 20px;        
+            }
+
+            .texto-colegio h2 {
+                margin: 0;
+                font-size: 34px;         
+                font-weight: 900;        
+                color: #ffffff;          
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                line-height: 1;
+            }
+
+            .texto-colegio .ubicacion-colegio {
+                margin: 4px 0 0 0;
+                font-size: 13px;
+                color: #000000;          
+                font-weight: 700;
+                letter-spacing: 3px;     
+                text-transform: uppercase;
+            }
+
+            /* ⚽ TÍTULO DE FÚTBOL SALA EN EL CENTRO */
+            .titulo-disciplina-separado {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                font-size: 38px;         
+                color: #000000;          
+                font-style: italic;      
+                font-weight: 900;        
+                margin-left: 60px;       
+                text-transform: capitalize;
+                white-space: nowrap;     
+            }
+
+            /* 🧩 BLOQUE DERECHO COMPLETO */
+            .header-derecho-contenedor {
+                display: flex;
+                align-items: center;
+                gap: 25px;
+            }
+
+            /* 📜 LA FRASE FILOSÓFICA LIMPIA */
+            .frase-filosofica {
+                margin: 0;
+                font-size: 11px;
+                font-style: italic;
+                color: #000000;          
+                font-weight: 700;
+                max-width: 250px; 
+                text-align: center;
+                line-height: 1.3;
+            }
+
+            /* 🍔 HAMBURGUESA INTERACTIVA (Líneas negras) */
+            .menu-interactivo {
+                position: relative; 
+            }
+
+            .icono-menu {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 32px;  
+                height: 20px; 
+                cursor: pointer;
+            }
+
+            .icono-menu span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: #000000; 
+                border-radius: 2px;
+            }
+
+            /* Desplegable */
+            .opciones-menu {
+                position: absolute;
+                top: 35px;
+                right: 0; 
+                background-color: #082727;  
+                list-style: none;
+                padding: 10px 0;
+                margin: 0;
+                border-radius: 8px;
+                width: 220px;
+                display: none;        
+                flex-direction: column;
+                border: 2px solid #32CD32;
+            }
+
+            .opciones-menu li a, .btn-regresar-enlace {
+                display: block;
+                padding: 12px 20px;
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 15px;
+                text-align: center; 
+            }
+
+            .btn-regresar-enlace {
+                color: #ff4757 !important;
+            }
+
+            .opciones-menu li a:hover, .btn-regresar-enlace:hover {
+                background-color: #32CD32;
+                color: black !important;
+            }
+
+            /* 🌐 CONTENEDOR DE REDES + LOGO SENA */
+            .redes-y-sena {
+                display: flex;
+                align-items: center;
+                gap: 15px; /* Espacio entre las redes y el SENA */
+            }
+
+            .redes-header {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .icono-red-social {
+                width: 28px !important;           
+                height: 28px !important;          
+                object-fit: contain !important;   
+            }
+
+            /* 🏁 LOGO DEL SENA MINI AL EXTREMO DERECHO */
+            .logo-sena-mini {
+                height: 35px !important; /* Pequeño y delicado para que no rompa el header */
+                width: auto;
+                object-fit: contain;
+                border-left: 2px solid #000000; /* Una pequeña línea negra divisoria para separarlo de las redes */
+                padding-left: 12px;
+            }
+
+            /* Ajuste del cuerpo para que el texto de quiénes somos no se tape */
+            body {
+                padding-top: 140px;
+                margin: 0;
+                font-family: 'Segoe UI', Arial, sans-serif;
+            }
+            .foto-proceso-deportivo {
+                max-width: 650px;          /* 🔥 Tamaño ideal para que no ocupe toda la pantalla */
+                width: 100%;               /* Se adapta si la pantalla es más pequeña (como en celulares) */
+                height: auto;              /* Mantiene la proporción original para que nadie se vea aplastado */
+                display: block;            /* Permite centrarla */
+                margin: 30px auto;         /* Centra la foto automáticamente y le da espacio arriba y abajo */
+                border-radius: 12px;       /* Bordes redonditos sutiles estilo premium */
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Una sombrita suave para que resalte del fondo */
+                border: 3px solid #32CD32; /* Mini borde verde que combina con el header */
+            }
+        </style>
+    </head>
+    <body>
+       <header>
+           <div class="brand-izquierdo">
+                <img src="https://colegiocomfenalcoibague.edu.co/images/Logos/Logo_Colegio.png" alt="Logo Colegio" class="logo-header">
+                <div class="texto-colegio">
+                    <h2>COMFENALCO</h2>
+                    <div class="ubicacion-colegio">Ibagué - Tolima</div>
+                </div>
+            </div>
+
+            <!-- TÍTULO CENTRAL -->
+            <div class="titulo-disciplina-separado">Fútbol Sala</div>
+
+            <!-- GRUPO DERECHO COMPLETITO -->
+            <div class="header-derecho-contenedor">
+                
+                <!-- Frase Filosófica -->
+                <p class="frase-filosofica">"El cuerpo activo sostiene a la mente que crea; no hay intelecto que brille sin una disciplina que lo temple."</p>
+
+                <!-- Menú Hamburguesa -->
+                <nav class="menu-interactivo">
+                    <div class="icono-menu" onclick="toggleMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul class="opciones-menu" id="menu-lista">
+                        <li class="fila-regresar">
+                            <a href="index.html" class="btn-regresar-enlace">← Regresar</a>
+                        </li>
+                        <li><a href="quienes_somos.html">👥 ¿Quiénes Somos?</a></li>
+                        <li><a href="horarios.html">📅 Horarios</a></li>
+                        <li><a href="inscripcion.html">📝 Inscríbete</a></li>
+                        <li><a href="profesor.html">👨‍🏫 Profesor</a></li>
+                    </ul>
+                </nav>
+
+                <!-- 🌐 REDES SOCIALES + LOGO SENA PEQUEÑO AL FINAL -->
+                <div class="redes-y-sena">
+                    <div class="redes-header">
+                        <a href="https://www.facebook.com" target="_blank"><img src="face-removebg-preview.png" alt="Facebook" class="icono-red-social"></a>
+                        <a href="https://instagram.com" target="_blank"><img src="insta-removebg-preview.png" alt="Instagram" class="icono-red-social"></a>
+                        <a href="https://www.youtube.com" target="_blank"><img src="youtube-removebg-preview.png" alt="YouTube" class="icono-red-social"></a>
+                    </div>
+                    
+                    <!-- 🏁 Aquí flota el logo del sena muy pequeño a la derecha de todo -->
+                    <img src="sena-removebg-preview.png" alt="Logo SENA" class="logo-sena-mini">
+                </div>
+
+            </div> 
+        </header>
+        <section id="quienes-somos" style="padding: 50px 20px; background-color: #ffffff; text-align: center;">
+            <h2>Información del Proceso Deportivo</h2>
+            <h3>por que y para que sirve el semillero de futbol a los estudiantes</h3>
+            <p>El Colegio Comfenalco, en su firme compromiso con la excelencia educativa, ha consolidado un ecosistema de formación integral mediante la apertura de espacios estratégicos para su Semillero de Fútbol. Esta iniciativa no solo representa una extensión pedagógica, sino un entorno de gestión emocional y psicomotriz donde los estudiantes canalizan su pasión deportiva bajo parámetros de disciplina y alto rendimiento.
+                A través de esta plataforma, se busca la optimización de las capacidades kinestésicas y el fortalecimiento de la resiliencia en el campo de juego. El semillero actúa como un catalizador donde la inteligencia emocional converge con la técnica deportiva, permitiendo que el estudiante desarrolle un sentido de pertenencia y liderazgo. Al integrar infraestructura de vanguardia y metodologías de entrenamiento sistemático, la institución garantiza que cada sesión sea un paso hacia la madurez física y cognitiva, reafirmando que el deporte es el eje transversal para el equilibrio del bienestar estudiantil.
+            </p> 
+            <img src="futbol_escuelas niños.pgn.webp" alt="Foto Proceso Deportivo" class="foto-proceso-deportivo">
+        </seccion>
+    </body>
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu-lista");
+            
+            // Si el menú está oculto o no tiene estilo, lo muestra estilo flex
+            if (menu.style.display === "flex") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "flex";
+            }
+        }
+    </script>
+</html>    
